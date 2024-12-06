@@ -52,14 +52,15 @@
         }
     </style>
 
-<div class="container my-5">
-    <form action="/rent" method="POST" enctype="multipart/form-data">
-        @csrf
-        <section class="row gap-4 justify-content-center">
-            <div id="box1" class="col-sm-4 w-30 rounded-3 border border-1 border-secondary px-0">
-                {{-- <img src="/Assets/Fasilitas/{{ $facility->slug }}-2.jpg" class="card-img-top"> --}}
-                @foreach (explode(', ', $facility->image) as $index => $imagePath)
-                    <img src="{{ asset('storage/' . $imagePath) }}" class="card-img-top rounded" alt="{{ $facility->slug }}-{{ $index + 1 }}" width="300" height="300">
+    <div class="container my-5">
+        <form action="/rent" method="POST" enctype="multipart/form-data">
+            @csrf
+            <section class="row gap-4 justify-content-center">
+                <div id="box1" class="col-sm-4 w-30 rounded-3 border border-1 border-secondary px-0">
+                    {{-- <img src="/Assets/Fasilitas/{{ $facility->slug }}-2.jpg" class="card-img-top"> --}}
+                    @foreach (explode(', ', $facility->image) as $index => $imagePath)
+                        <img src="{{ asset('storage/' . $imagePath) }}" class="card-img-top rounded"
+                            alt="{{ $facility->slug }}-{{ $index + 1 }}" width="300" height="300">
                     @break
                 @endforeach
                 <div class="card-body">
@@ -126,118 +127,118 @@
     </form>
 </div>
 
-    <script>
-        let hasFiles = false;
-        const dropArea = document.querySelector(".dropArea");
-        const inputFile = document.querySelector("#fileInput");
-        const inputFileLabel = document.querySelector("label[for='fileInput']");
-        const fileList = document.querySelector("#fileList");
-        const selectedFiles = []; // Menyimpan file yang telah dipilih
+<script>
+    let hasFiles = false;
+    const dropArea = document.querySelector(".dropArea");
+    const inputFile = document.querySelector("#fileInput");
+    const inputFileLabel = document.querySelector("label[for='fileInput']");
+    const fileList = document.querySelector("#fileList");
+    const selectedFiles = []; // Menyimpan file yang telah dipilih
 
-        dropArea.addEventListener("dragover", (e) => {
+    dropArea.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        dropArea.style.backgroundColor = "#f7f7f7";
+    });
+
+    dropArea.addEventListener("dragleave", () => {
+        dropArea.style.backgroundColor = "transparent";
+    });
+
+    dropArea.addEventListener("drop", (e) => {
+        e.preventDefault();
+        dropArea.style.backgroundColor = "transparent";
+
+        const files = e.dataTransfer.files;
+
+        if (files.length > 0) {
+            for (let i = 0; i < files.length; i++) {
+                selectedFiles.push(files[i]);
+            }
+
+            displaySelectedFiles();
+            hasFiles = true;
+        }
+    });
+
+    inputFile.addEventListener("change", () => {
+        const files = inputFile.files;
+
+        if (files.length > 0) {
+            for (let i = 0; i < files.length; i++) {
+                selectedFiles.push(files[i]);
+            }
+
+            displaySelectedFiles();
+            hasFiles = true;
+        }
+    });
+
+    document.getElementById("tombol").addEventListener("click", (e) => {
+        if (!hasFiles) {
             e.preventDefault();
-            dropArea.style.backgroundColor = "#f7f7f7";
-        });
+            alert("Silahkan Cantumkan Dokumen!");
+        }
+    });
 
-        dropArea.addEventListener("dragleave", () => {
-            dropArea.style.backgroundColor = "transparent";
-        });
+    function displaySelectedFiles() {
+        inputFileLabel.style.display = "none";
+        fileList.style.display = "block";
+        fileList.innerHTML = ""; // Membersihkan daftar sebelum menambahkan kembali
 
-        dropArea.addEventListener("drop", (e) => {
-            e.preventDefault();
-            dropArea.style.backgroundColor = "transparent";
-
-            const files = e.dataTransfer.files;
-
-            if (files.length > 0) {
-                for (let i = 0; i < files.length; i++) {
-                    selectedFiles.push(files[i]);
-                }
-
-                displaySelectedFiles();
-                hasFiles = true;
-            }
-        });
-
-        inputFile.addEventListener("change", () => {
-            const files = inputFile.files;
-
-            if (files.length > 0) {
-                for (let i = 0; i < files.length; i++) {
-                    selectedFiles.push(files[i]);
-                }
-
-                displaySelectedFiles();
-                hasFiles = true;
-            }
-        });
-
-        document.getElementById("tombol").addEventListener("click", (e) => {
-            if (!hasFiles) {
-                e.preventDefault();
-                alert("Silahkan Cantumkan Dokumen!");
-            }
-        });
-
-        function displaySelectedFiles() {
-            inputFileLabel.style.display = "none";
-            fileList.style.display = "block";
-            fileList.innerHTML = ""; // Membersihkan daftar sebelum menambahkan kembali
-
-            for (let i = 0; i < selectedFiles.length; i++) {
-                const fileItem = document.createElement("div");
-                fileItem.innerText = selectedFiles[i].name;
-                fileItem.style.marginBottom = "5px";
-                fileItem.style.fontSize = "13px";
-                fileList.appendChild(fileItem);
-            }
-
-            document.getElementById("logoDL").style.display = "none";
+        for (let i = 0; i < selectedFiles.length; i++) {
+            const fileItem = document.createElement("div");
+            fileItem.innerText = selectedFiles[i].name;
+            fileItem.style.marginBottom = "5px";
+            fileItem.style.fontSize = "13px";
+            fileList.appendChild(fileItem);
         }
 
-        document.getElementById("tombol").addEventListener("click", (e) => {
-            // Ambil nilai dari kolom input
-            const namaValue = document.getElementById("nama").value;
-            const nimValue = document.getElementById("nim").value;
-            const emailValue = document.getElementById("email").value;
-            const teleponValue = document.getElementById("noTel").value;
+        document.getElementById("logoDL").style.display = "none";
+    }
 
-            // Reset pesan kesalahan
-            document.getElementById("errorNama").textContent = "";
-            document.getElementById("errorNim").textContent = "";
-            document.getElementById("errorEmail").textContent = "";
-            document.getElementById("errorTelepon").textContent = "";
+    document.getElementById("tombol").addEventListener("click", (e) => {
+        // Ambil nilai dari kolom input
+        const namaValue = document.getElementById("nama").value;
+        const nimValue = document.getElementById("nim").value;
+        const emailValue = document.getElementById("email").value;
+        const teleponValue = document.getElementById("noTel").value;
+
+        // Reset pesan kesalahan
+        document.getElementById("errorNama").textContent = "";
+        document.getElementById("errorNim").textContent = "";
+        document.getElementById("errorEmail").textContent = "";
+        document.getElementById("errorTelepon").textContent = "";
 
 
-            // Lakukan validasi
-            let isValid = true;
+        // Lakukan validasi
+        let isValid = true;
 
-            if (namaValue.trim() === "") {
-                document.getElementById("errorNama").textContent = "Bagian ini tidak boleh kosong!";
-                isValid = false;
-            }
+        if (namaValue.trim() === "") {
+            document.getElementById("errorNama").textContent = "Bagian ini tidak boleh kosong!";
+            isValid = false;
+        }
 
-            if (nimValue.trim() === "") {
-                document.getElementById("errorNim").textContent = "Bagian ini tidak boleh kosong!";
-                isValid = false;
-            }
+        if (nimValue.trim() === "") {
+            document.getElementById("errorNim").textContent = "Bagian ini tidak boleh kosong!";
+            isValid = false;
+        }
 
-            if (jurusanValue.trim() === "") {
-                document.getElementById("errorEmail").textContent = "Bagian ini tidak boleh kosong!";
-                isValid = false;
-            }
+        if (jurusanValue.trim() === "") {
+            document.getElementById("errorEmail").textContent = "Bagian ini tidak boleh kosong!";
+            isValid = false;
+        }
 
-            if (jurusanValue.trim() === "") {
-                document.getElementById("errorTelepon").textContent = "Bagian ini tidak boleh kosong!";
-                isValid = false;
-            }
+        if (jurusanValue.trim() === "") {
+            document.getElementById("errorTelepon").textContent = "Bagian ini tidak boleh kosong!";
+            isValid = false;
+        }
 
-            // Hentikan pengajuan permintaan jika ada yang kosong
-            if (!isValid) {
-                e.preventDefault();
-            }
-        });
-        document.querySelectorAll('.formatted-price').forEach(function (element) {
+        // Hentikan pengajuan permintaan jika ada yang kosong
+        if (!isValid) {
+            e.preventDefault();
+        }
+    });
+    document.querySelectorAll('.formatted-price').forEach(function(element) {
         // Mengambil nilai harga dari data-raw-price
         var rawPrice = element.getAttribute('data-raw-price');
 
@@ -247,8 +248,12 @@
         // Mengganti teks pada elemen dengan harga yang diformat
         element.innerText = formattedPrice;
     });
+
     function formatCurrency(amount) {
-        return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(amount);
+        return new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR'
+        }).format(amount);
     }
-    </script>
+</script>
 @endsection

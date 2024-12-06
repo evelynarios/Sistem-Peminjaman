@@ -20,7 +20,7 @@
                                         {{-- Process multiple images --}}
                                         @foreach (explode(', ', $facility->image) as $index => $image)
                                             <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                                                <img src="{{ asset('Assets/' . $image) }}" class="d-block w-100 rounded"
+                                                <img src="{{ asset('storage/' . $image) }}" class="d-block w-100 rounded"
                                                     alt="{{ $facility->name }}-{{ $index + 1 }}" width="300"
                                                     height="300">
                                             </div>

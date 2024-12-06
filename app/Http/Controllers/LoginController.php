@@ -30,7 +30,7 @@ class LoginController extends Controller
             }
             return redirect()->intended('/homepage');
         } else {
-            return back()->with('loginError', 'Login Failed !');
+            return back()->with('loginError', 'Login gagal! Pastikan email dan password benar');
         }
     }
     public function logout(Request $request)

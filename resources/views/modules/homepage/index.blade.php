@@ -87,7 +87,7 @@
                     <div class=" card card-body">
                         <div class="dropdown row">
                             <div class="col-lg-6 ">
-                                <p class="fs-1">Gedung</p>
+                                <p class="fs-1">Gedung Kelas</p>
                                 <select class="form-select form-select-lg mb-3 col-4" aria-label="Large select example"
                                     onchange="updateKelas()" id="gedungPerkuliahan">
                                     <option selected>Pilih gedung</option>
@@ -110,7 +110,7 @@
                                 <div class="col" style="padding-top: 20px;">
                                     <a class="btn" href="#"
                                         style="background-color: #03045e; color: #fff;border-color: #03045e; "
-                                        onclick="return validateForm() ? window.location.href='/rentpage' : null">Submit</a>
+                                        onclick="return validateForm() ? window.location.href='/checkAvailabilityKelas' : null">Submit</a>
                                 </div>
                             </div>
                         </div>

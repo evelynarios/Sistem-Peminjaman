@@ -48,22 +48,22 @@ class HomepageController extends Controller
 
         return view('modules.rentpage.index', $data);
     }
-    // public function checkAvailabilityKelas(Request $request){
-    //     $facilityId = $request->input('facility_id');
-    //     $tanggalSewa = $request->input('tanggalSewa');
+    public function checkAvailabilityKelas(Request $request){
+        $facilityId = $request->input('facility_id');
+        $tanggalSewa = $request->input('tanggalSewa');
 
-    //     // dd($facilityId, $tanggalSewa)
-    //     $data = [
-    //         'facility' => $this->facilityModel->getFacilityByID($facilityId),
-    //         'title' => 'Rentpage',
+        // dd($facilityId, $tanggalSewa)
+        $data = [
+            'facility' => $this->facilityModel->getFacilityByID($facilityId),
+            'title' => 'Rentpage',
 
-    //         'tanggalSewa' => $tanggalSewa
-    //     ];
+            'tanggalSewa' => $tanggalSewa
+        ];
 
-    //     // dd($data);
+        // dd($data);
 
-    //     return view('modules.rentpage.index', $data);
-    // }
+        return view('modules.rentpage.index', $data);
+    }
 
 
 }

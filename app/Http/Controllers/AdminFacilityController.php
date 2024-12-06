@@ -64,6 +64,7 @@ class AdminFacilityController extends Controller
             'description' => 'required',
             'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+        //Log::info('Data tervalidasi:', $validatedData);
 
         $imagePaths = [];
 

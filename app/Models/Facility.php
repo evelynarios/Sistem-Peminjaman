@@ -14,8 +14,7 @@ class Facility extends Model
         'slug',
         'description',
         'category_id',
-        'image',
-        'price'
+        'image'
     ];
 
     public function getSlugbyID($id_facility)
