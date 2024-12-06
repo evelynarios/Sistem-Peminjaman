@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->text('description');
             $table->string('image')->nullable();
-            $table->integer('price');
             $table->timestamps();
             // $table->string('category');
             // $table->string('photo');
